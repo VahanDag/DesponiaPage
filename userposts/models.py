@@ -44,9 +44,6 @@ class UserMessages(models.Model):
     total_like = models.IntegerField(null=True,blank=True,verbose_name="Total Like", default=0)
     
     
-    class Meta:
-        db_table = "UserMessages"
-    
     def children(self): #replies
         return UserMessages.objects.filter(replies = self)
 
