@@ -69,7 +69,7 @@ def login_user(request):
             user = auth.authenticate(
                 request, username=username, password=password)
 
-            if user and not user.is_email_verified:
+            if user and not user.profile.is_email_verified:
                 messages.add_message(request, messages.ERROR,
                                      'Email is not verified, please check your email inbox')
                 return render(request, 'accounts/login.html', status=401)
@@ -117,7 +117,7 @@ def update_profile(request):
                     u_form.save()
                     p_form.save()
 
-                    request.user.is_email_verified = False
+                    request.user.profile.is_email_verified = False
                     send_activation_email(request.user, request)
                     request.user.save()
                     messages.add_message(
@@ -187,7 +187,7 @@ def activate_user(request, uidb64, token):
         user = None
 
     if user and generate_token.check_token(user, token):
-        user.is_email_verified = True
+        user.profile.is_email_verified = True
         user.save()
 
         messages.add_message(request, messages.SUCCESS,
