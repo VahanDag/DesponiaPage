@@ -19,16 +19,11 @@ def index(request):
     latest_post = UserPosts.objects.all().order_by("-last_message")
     answers = UserMessages.objects.all()
     rank_news = UserRanks.objects.all()
-    answer_count = 0
-    for answer in answers:
-        for post in latest_post:
-            if answer.post_id == post.id:
-                answer_count += 1
+
     context = {
         'category': category,
         "latest_post": latest_post,
         "answers": answers,
-        "count": answer_count,
         "rank_news": rank_news
     }
     return render(request, "intro.html", context)
