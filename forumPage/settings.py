@@ -29,7 +29,7 @@ SECRET_KEY = config("SECRET_KEY")
 DEBUG = True
 
 # ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
-ALLOWED_HOSTS = ["desponia-page.herokuapp.com"]
+ALLOWED_HOSTS = ["desponia-page.herokuapp.com","127.0.0.1"]
 
 
 # Application definition
@@ -59,7 +59,6 @@ INSTALLED_APPS = [
 ]
 FRAOLA_EDITOR_THIRD_PARTY = ('image_aviary', 'spell_checker')
 
-CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -158,36 +157,6 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
 
-CKEDITOR_CONFIGS = {
-    'default': {
-        "width": "101%",
-        "height": 300,
-        'autoParagraph':False,
-        'toolbar_Full': [
-            ["Font", 'Format', 'Bold', 'Italic', 'Underline',
-             'Strike', 'SpellChecker', 'Undo', 'Redo'],
-            ['HorizontalRule','Link','Blockquote','ImageButton'],
-            ['TextColor', 'BGColor'],
-            ['Smiley', 'SpecialChar'],
-            ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['NumberedList', 'BulletedList'],
-        ],
-    },
-}
-
-# CKEDITOR_THUMBNAIL_SIZE = (500, 500)
-
-
-# 'default': {
-#     'toolbar': 'Custom',
-#     'toolbar_Custom': [
-#         {"styles":["Styles","Format"]},
-#         ['Bold', 'Italic', 'Underline'],
-#         ['NumberedList', 'BulletedList'],
-#         ['Link','RemoveFormat'],
-#         ["Blockquote"]
-#     ]
-# },
 
 FROALA_EDITOR_PLUGINS = ( 'char_counter', 'code_beautifier' , 'colors', 'draggable', 'emoticons',
          'font_family', 'font_size', 'image_manager', 'image', 'inline_style',
@@ -196,28 +165,6 @@ FROALA_EDITOR_PLUGINS = ( 'char_counter', 'code_beautifier' , 'colors', 'draggab
 
 FROALA_EDITOR_OPTIONS = {
     'height':300,
-}
-
-
-QUILL_CONFIGS = {
-    'default': {
-        'theme': 'snow',
-        'modules': {
-            'syntax': True,
-            'toolbar': [
-                [
-                    {'font': ['sofia', 'slabo', 'roboto', 'inconsolata', 'ubuntu']},
-                    {'header': [2, 3, 4, 5, 6, False]},
-                    {'align': []},
-                    'bold', 'italic', 'underline', 'strike', 'blockquote',
-                    {'color': []},
-                    {'background': []},
-                ],
-            ['code-block', 'link', 'image'],
-            ['clean'],
-            ]
-        }
-    }
 }
 
 LOGIN_URL = "login"
