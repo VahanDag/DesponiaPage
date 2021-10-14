@@ -5,6 +5,7 @@ from accounts.models import UserRanks
 from .forms import PostForm
 from django.contrib.auth.models import User
 from django.contrib import messages
+from accounts.models import Profile
 
 # Create your views here.
 
@@ -21,7 +22,7 @@ def newPost(request,ctgUrl):
             messages.add_message(request, messages.SUCCESS, "Your post has been successfully published")
                         
 
-            total_messages_post = User.objects.get(username = request.user)
+            total_messages_post = Profile.objects.get(user = request.user)
             total_messages_post.total_post +=1
             total_messages_post.save()
             

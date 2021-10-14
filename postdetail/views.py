@@ -17,7 +17,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.forms import inlineformset_factory
 from django.core.paginator import Paginator
-
+from accounts.models import Profile
 
 def liked_post(request, pk):
     if request.is_ajax():
@@ -132,7 +132,7 @@ def detail_post(request, _detail):
             user_update_score.save()
 
             user_update_message = get_object_or_404(
-                User, username=form.instance.username)
+                Profile, user=form.instance.username)
             user_update_message.total_message += 1
             user_update_message.save()
 
@@ -230,8 +230,8 @@ def reply(request, pk):
             user_update_score.score += 2
             user_update_score.save()
 
-            user_update_message = User.objects.get(
-                username=form.instance.username)
+            user_update_message = Profile.objects.get(
+                user=form.instance.username)
             user_update_message.total_message += 1
             user_update_message.save()
 
