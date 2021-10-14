@@ -1,0 +1,32 @@
+{% extends 'fixed/_base.html' %}
+{% load static %}
+{% block content %}
+
+{% if request.user == messages.username %}
+
+    <div class="container-md w-75 my-5">
+        <div class="card delete-post">
+            <div class="card-header h2">
+              Delete Message
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="card-title my-2 mb-4">
+                        Are you sure you want delete: <strong> {{messages.postMessages | safe}} </strong>
+                    </div>
+                    <hr>
+                        <button type="submit" class="btn btn-danger btn-block ">Delete</button>
+                </form>
+            </div>
+            <a href="{% url 'detail' messages.post.id %}" class="mb-2">Cancel</a>
+          </div>
+    </div>
+{% else %}
+
+<h1>Giris Yap</h1>
+
+{% endif %}
+
+
+{% endblock %}

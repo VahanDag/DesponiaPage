@@ -1,0 +1,120 @@
+{% extends 'fixed/_base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Register -Desponia</title>
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="row my-5">
+    <div class="col-md-6 mx-auto mb-5  text-center">
+        <h1>You are already registered..</h1>
+        <hr>
+        <a href="/" class="h5">Go home</a>
+    </div>
+</div>
+
+{% else %}
+<div class="main-register ">
+    <section class="signup">
+        <!-- <img src="images/signup-bg.jpg" alt=""> -->
+        <div class="container-register">
+            <h2 class="card-header bg-dark form-title text-white">Create Account</h2>
+            {% include 'fixed/_alert.html' %}
+            <div class="signup-content">
+                <form action="{% url 'register' %}" method="POST" class="signup-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" class="form-input" name="username" id="username" placeholder="Username"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-input" name="email" id="email" placeholder="Your Email"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" class="form-input" name="password" id="password" placeholder="Password"
+                            required>
+                        <i toggle="#password" class="fas fa-eye toggle-password field-icon"></i>
+                    </div>
+                    <div class="form-group">
+                        <label for="repassword">Re-password:</label>
+                        <input type="password" class="form-input" name="repassword" id="re_password"
+                            placeholder="Repeat your password" required>
+                    </div>
+
+                    <div class="form-group">
+                        <!-- <input type="submit" name="submit" id="submit" class="form-submit" value="Sign up" /> -->
+                        <button type="submit" class="btn btn-primary form-submit btn-block">Submit</button>
+                    </div>
+                    <div class="form-group text-muted ml-2 register-terms">
+                        By clicking “Sign
+                        up”, you agree to our
+                        <a href="{% url 'tos' %}">terms of service</a> and <a href="{% url 'privacy' %}">privacy policy</a>.
+                    </div>
+                </form>
+
+
+            </div>
+            <div class="card-footer">
+                <p class="loginhere">
+                    Have already an account ? <a href="{% url 'login' %}" class="loginhere-link">Login here</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+</div>
+{% endif %} 
+<!-- {% if user.is_authenticated %}
+        <div class="row my-5">
+            <div class="col-md-6 mx-auto mb-5  text-center">
+                <h1>You are already registered..</h1>
+                <hr>
+                <a href="/" class="h5">Go home</a>
+            </div>
+        </div>
+
+    {% else %}
+        <div class="row my-5">
+            <div class="col-md-6 mx-auto mb-5">
+                <div class="card">
+                    <div class="card-header bg-dark text-white text-center">
+                        <h2>Register</h2>
+                    </div>
+                    {% include 'fixed/_alert.html' %}
+
+                    <div class="card-body ">
+                        <form action="{% url 'register' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" name="username" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" name="email" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" class="form-control" id="password" data-toggle="password"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label for="repassword">Re-Password</label>
+                                <input type="password" name="repassword" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %} -->
+
+
+{% endblock %}

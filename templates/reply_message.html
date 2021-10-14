@@ -1,0 +1,65 @@
+{% extends 'fixed/_base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    {% if message.username != request.user %}
+        <div class="container my-5">
+            <div class="card ">
+                <h2 class="card-header mb-2">You reply to <strong>{{ message.username }} </strong>  </h2>
+
+                <div class="row card-body">
+                    <div class="col-lg-2 ">
+                        <a href="{% url 'users' message.username %}">
+                            <img src="{{ message.username.profile.image.url }}" class="img-reply rounded-circle">
+                        </a>
+
+                    </div>
+                    <div class="col-lg-10 speech-bubble py-3 "> <!-- large screen -->
+                            {{message | safe}}
+                    </div>
+                    <div class="col-lg-10 speech-bubble-small  "> <!-- small screen -->
+                            {{message | safe}}
+                    </div>
+                </div>
+
+                <div class="navbar my-2 reply-nav bg-dark text-white "> 
+                    <h3> Your message</h3>
+                </div>
+                
+                <form action="" class="reply-editor " method="POST">
+                    {% csrf_token %}
+                    {{ reply_form.media }}
+                    {{ reply_form.as_p }}
+
+                    <div class="container reply-link  w-50">
+                        <button class="btn btn-primary btn-block ">Reply</button>
+                    </div>
+                    
+                    <a href="{% url 'detail' message.post.id %}" class=" "> Cancel</a>
+                </form>
+                
+            </div>
+
+        </div>
+    {% else %}
+    <div class="row my-5">
+        <div class="col-md-6 mx-auto mb-5  text-center">
+            <h1>You can't reply to your message..</h1>
+            <hr>
+            <a href="/">Go home</a>
+        </div>
+    </div>
+    {% endif %}
+
+{% else %}
+    <div class="row my-5">
+    <div class="col-md-6 mx-auto mb-5 text-justify text-center">
+        <h1>You must be logged in to reply to the message</h1>
+        <hr>
+        <a href="{% url 'login' %}">Click this link to go to the login page</a>
+    </div>
+</div>
+
+{% endif %}
+
+{% endblock %}

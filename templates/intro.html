@@ -1,0 +1,554 @@
+{% extends 'fixed/_base.html' %}
+{% load static %}
+{% load pages_extras %}
+{% load humanize %}
+
+{% block title %}
+<title>Desponia</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="container my-5">
+    <div class="jumbotron jumbo-advertisement "></div>
+
+    {% include 'fixed/_alert.html' %}
+    
+    <div class="row ">
+        <aside class="col-lg-3 col-md-12 col-sm-12">
+            <div class="marquee-div ">
+                <h4 class="bg-dark text-white topic-header  text-center" style="padding: 15px;">Rank News</h4>
+                <div class="marquee ">
+                    <div class="dashboard ">
+                        <ul class=" list-group  ">
+                            {% for rank_new in rank_news %}
+                            {% if rank_new.score > 50 %}
+
+                            <li class="list-group-item news-item ">
+                                <a href="{% url 'users' rank_new.user %}" class="mr-1">
+                                    {{ rank_new.user }}
+                                </a> was promoted to the rank of <strong> {{rank_new.user.userranks.rank_name}}</strong>
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </aside>
+        <div class="col-lg-9 col-md-12 col-sm-12 ">
+            <div class="card ">
+                <h4 class="card-header text-center topic-header">Latest Posts</h4>
+                <ul class="list-group">
+                    {% for latest in latest_post %}
+                    {% if forloop.counter < 10 %} <li class="list-group-item">
+                        <div class="row  ">
+                            <div class=" col-1   avatar mt-2  " id="latest-image">
+                                <a href="{% url 'users' latest.username %}"><img
+                                        src="{{ latest.username.profile.image.url }}" class=" avatar-img rounded-circle"
+                                        alt="image post"></a>
+                            </div>
+                            <div class="col-7 post-title-col ">
+                                <div class="  ml-2  mb-2 ">
+                                    <a href="{% url 'detail' latest.id %}" class="text-dark title-posts mt-2">
+                                        {{latest.postTitle}}
+                                    </a>
+                                    <span class="badge badge-info ">{{ latest.category }}</span>
+                                </div>
+                                <div class="  ">
+                                    <div class=" row  latest-post-info">
+                                        <a href="{% url 'users' latest.username %}" class="text-dark  ml-4 mr-3">
+                                            {{latest.username}} </a>
+                                        <a href="{% url 'detail' latest.id %}" class="text-dark text-muted ">asked
+                                            {{latest.created_at | naturaltime}}</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4  post-title-col-info ">
+                                <div class="row">
+                                    <div class=" latest-post-info text-muted ">
+                                        <div class="col  mb-1">
+                                            {% if latest.answer_count %}
+                                            Answers: {{latest.answer_count}}
+                                            {% else %}
+                                            Answers: 0
+                                            {% endif %}
+
+                                        </div>
+                                        <div class="col latest-views">Views: {{ latest.post_views }}</div>
+                                    </div>
+                                    <div class="col latest-post-info ">
+                                        <div class="mb-1 text-muted latest-message">
+                                            {% if latest.last_message %}
+                                            {{latest.last_message | naturaltime}}
+                                            {% else %}
+                                            none
+                                            {% endif %}
+                                        </div>
+                                        <div class=" ">
+                                            <a href="{% url 'users' latest.last_message_username %}"
+                                                class="text-dark  ">
+                                                {% if latest.last_message_username %}
+                                                {{latest.last_message_username }}
+                                                {% else %}
+                                                None
+                                                {% endif %}
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+
+                </ul>
+            </div>
+            <br><br><br>
+            <!--content here-->
+            <nav class="navbar bg-dark  categories-intro">
+                <img class="img-intro-1" src="{% static 'image/default.jpg' %}" alt="">
+                <h4 class=" text-white text-center " style="font-size:40px">Categories</h4>
+                <img class="img-intro-2" src="{% static 'image/default.jpg' %}" alt="">
+            </nav>
+            <br>
+            <div class="card mt-5">
+                <button href="#helpCenter" class="card-header bg-dark text-white" data-toggle="collapse">
+                    <h4 class="topic-header">Help Center</h4>
+                </button>
+
+                <div id="helpCenter" class="collapse show ">
+                    {% for x in category %}
+                    {% if x.categoryName == 'Help Center' %}
+
+                    <div class=" row my-2">
+
+                        <div class="col-md-8 mt-2">
+                            <div class="forum-icon">
+                                {{ x.categoryBrand | safe }}
+                            </div>
+                            <div class=" h4 bg-white "><a href="{% url 'forums' x.categoryName %}"
+                                    class=" h4 header-font ">{{ x.categoryName }}</a>
+                            </div>
+                            <hr class="hr-category">
+                            <p class="ctg-desc text-muted">{{ x.Categorydescription }}</p>
+                        </div>
+                        <div class="col-md-1  forum-info">
+                            <span class="views-number">
+                                {{ x.totalPost }}
+                            </span>
+                            <div>
+                                <small class="text-muted">Posts</small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1 forum-info  total-message ml-4">
+                            <span class="views-number">
+                                {{ x.totalMessage }}
+                            </span>
+                            <div class="">
+                                <small class="text-muted ">Messages</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="card mt-5">
+                <button href="#programming" class="card-header bg-dark text-white" data-toggle="collapse">
+                    <h4 class="topic-header">Programming</h4>
+                </button>
+
+                <div id="programming" class="collapse show ">
+                    {% for x in category %}
+                    {% if x.categoryName == 'Programming Center' %}
+
+                    <div class=" row my-2">
+
+                        <div class="col-md-8 mt-2">
+                            <div class="forum-icon ">
+                                {{ x.categoryBrand | safe }}
+                            </div>
+                            <div class=" h4 bg-white "><a href="{% url 'forums' x.categoryName %}"
+                                    class=" h4 header-font ">{{ x.categoryName }}</a>
+                            </div>
+                            <hr class="hr-category">
+                            <p class="ctg-desc text-muted">{{ x.Categorydescription }}</p>
+                        </div>
+                        <div class="col-md-1  forum-info">
+                            <span class="views-number">
+                                {{ x.totalPost }}
+                            </span>
+                            <div>
+                                <small class="text-muted">Posts</small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1 forum-info  px-2 total-message ml-4">
+                            <span class="views-number">
+                                {{ x.totalMessage }}
+                            </span>
+                            <div class="">
+                                <small class="text-muted ">Messages</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <hr>
+                    {% for x in category %}
+                    {% if x.categoryName == 'Web Programming' %}
+
+                    <div class="  row my-2">
+
+                        <div class="col-md-8 mt-2">
+                            <div class="forum-icon ">
+                                {{ x.categoryBrand | safe }}
+                            </div>
+                            <div class=" h4 bg-white "><a href="{% url 'forums' x.categoryName %}"
+                                    class=" h4 header-font ">{{ x.categoryName }}</a>
+                            </div>
+                            <hr class="hr-category">
+                            <p class="ctg-desc text-muted">{{ x.Categorydescription }}</p>
+                        </div>
+                        <div class="col-md-1  forum-info">
+                            <span class="views-number">
+                                {{ x.totalPost }}
+                            </span>
+                            <div>
+                                <small class="text-muted">Posts</small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1 forum-info  px-2 total-message ml-4">
+                            <span class="views-number">
+                                {{ x.totalMessage }}
+                            </span>
+                            <div class="">
+                                <small class="text-muted ">Messages</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <hr>
+                    {% for x in category %}
+                    {% if x.categoryName == 'Mobile Programming' %}
+
+                    <div class="  row my-2">
+
+                        <div class="col-md-8 mt-2">
+                            <div class="forum-icon ">
+                                {{ x.categoryBrand | safe }}
+                            </div>
+                            <div class=" h4 bg-white "><a href="{% url 'forums' x.categoryName %}"
+                                    class=" h4 header-font ">{{ x.categoryName }}</a>
+                            </div>
+                            <hr class="hr-category">
+                            <p class="ctg-desc text-muted">{{ x.Categorydescription }}</p>
+                        </div>
+                        <div class="col-md-1  forum-info">
+                            <span class="views-number">
+                                {{ x.totalPost }}
+                            </span>
+                            <div>
+                                <small class="text-muted">Posts</small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1 forum-info  px-2 total-message ml-4">
+                            <span class="views-number">
+                                {{ x.totalMessage }}
+                            </span>
+                            <div class="">
+                                <small class="text-muted ">Messages</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <hr>
+                    {% for x in category %}
+                    {% if x.categoryName == 'Python' %}
+
+                    <div class=" row my-2">
+
+                        <div class="col-md-8 mt-2">
+                            <div class="forum-icon ">
+                                {{ x.categoryBrand | safe }}
+                            </div>
+                            <div class=" h4 bg-white "><a href="{% url 'forums' x.categoryName %}"
+                                    class=" h4 header-font ">{{ x.categoryName }}</a>
+                            </div>
+                            <hr class="hr-category">
+                            <p class="ctg-desc text-muted">{{ x.Categorydescription }}</p>
+                        </div>
+                        <div class="col-md-1  forum-info">
+                            <span class="views-number">
+                                {{ x.totalPost }}
+                            </span>
+                            <div>
+                                <small class="text-muted">Posts</small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1 forum-info  px-2 total-message ml-4">
+                            <span class="views-number">
+                                {{ x.totalMessage }}
+                            </span>
+                            <div class="">
+                                <small class="text-muted ">Messages</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <hr>
+                    {% for x in category %}
+                    {% if x.categoryName == 'Java' %}
+
+                    <div class=" row my-2">
+
+                        <div class="col-md-8 mt-2">
+                            <div class="forum-icon ">
+                                {{ x.categoryBrand | safe }}
+                            </div>
+                            <div class=" h4 bg-white "><a href="{% url 'forums' x.categoryName %}"
+                                    class=" h4 header-font ">{{ x.categoryName }}</a>
+                            </div>
+                            <hr class="hr-category">
+                            <p class="ctg-desc text-muted">{{ x.Categorydescription }}</p>
+                        </div>
+                        <div class="col-md-1  forum-info">
+                            <span class="views-number">
+                                {{ x.totalPost }}
+                            </span>
+                            <div>
+                                <small class="text-muted">Posts</small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1 forum-info  px-2 total-message ml-4">
+                            <span class="views-number">
+                                {{ x.totalMessage }}
+                            </span>
+                            <div class="">
+                                <small class="text-muted ">Messages</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <hr>
+                    {% for x in category %}
+                    {% if x.categoryName == 'PHP' %}
+
+                    <div class=" row my-2">
+
+                        <div class="col-md-8 mt-2">
+                            <div class="forum-icon ">
+                                {{ x.categoryBrand | safe }}
+                            </div>
+                            <div class=" h4 bg-white "><a href="{% url 'forums' x.categoryName %}"
+                                    class=" h4 header-font ">{{ x.categoryName }}</a>
+                            </div>
+                            <hr class="hr-category">
+                            <p class="ctg-desc text-muted">{{ x.Categorydescription }}</p>
+                        </div>
+                        <div class="col-md-1  forum-info">
+                            <span class="views-number">
+                                {{ x.totalPost }}
+                            </span>
+                            <div>
+                                <small class="text-muted">Posts</small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1 forum-info  px-2 total-message ml-4">
+                            <span class="views-number">
+                                {{ x.totalMessage }}
+                            </span>
+                            <div class="">
+                                <small class="text-muted ">Messages</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="card mt-5">
+                <button href="#Blockchain" class="card-header bg-dark text-white" data-toggle="collapse">
+                    <h4 class="topic-header">Blockchain</h4>
+                </button>
+
+                <div id="Blockchain" class="collapse show ">
+                    {% for x in category %}
+                    {% if x.categoryName == 'Blockchain' %}
+
+                    <div class=" row my-2">
+
+                        <div class="col-md-8 mt-2">
+                            <div class="forum-icon ">
+                                {{ x.categoryBrand | safe }}
+                            </div>
+                            <div class=" h4 bg-white "><a href="{% url 'forums' x.categoryName %}"
+                                    class=" h4 header-font ">{{ x.categoryName }}</a>
+                            </div>
+                            <hr class="hr-category">
+                            <p class="ctg-desc text-muted">{{ x.Categorydescription }}</p>
+                        </div>
+                        <div class="col-md-1  forum-info">
+                            <span class="views-number">
+                                {{ x.totalPost }}
+                            </span>
+                            <div>
+                                <small class="text-muted">Posts</small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1 forum-info  px-2 total-message ml-4">
+                            <span class="views-number">
+                                {{ x.totalMessage }}
+                            </span>
+                            <div class="">
+                                <small class="text-muted ">Messages</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="card mt-5 ">
+                <button href="#infotechno" class="card-header bg-dark text-white" data-toggle="collapse">
+                    <h4 class="topic-header">Information Technology's</h4>
+                </button>
+
+                <div id="infotechno" class="collapse show ">
+                    {% for x in category %}
+                    {% if x.categoryName == 'Artificial Intelligence' %}
+
+                    <div class=" row my-2">
+
+                        <div class="col-md-8 mt-2 ">
+                            <div class="forum-icon ">
+                                {{ x.categoryBrand | safe }}
+                            </div>
+                            <div class=" h4 bg-white "><a href="{% url 'forums' x.categoryName %}"
+                                    class=" h4 header-font ">{{ x.categoryName }}</a>
+                            </div>
+                            <hr class="hr-category">
+                            <p class="ctg-desc text-muted">{{ x.Categorydescription }}</p>
+                        </div>
+                        <div class="col-md-1  forum-info">
+                            <span class="views-number">
+                                {{ x.totalPost }}
+                            </span>
+                            <div>
+                                <small class="text-muted">Posts</small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1 forum-info  px-2 total-message ml-4">
+                            <span class="views-number">
+                                {{ x.totalMessage }}
+                            </span>
+                            <div class="">
+                                <small class="text-muted ">Messages</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <hr>
+                    {% for x in category %}
+                    {% if x.categoryName == 'Games' %}
+
+                    <div class=" row my-2">
+
+                        <div class="col-md-8 mt-2 ">
+                            <div class="forum-icon ">
+                                {{ x.categoryBrand | safe }}
+                            </div>
+                            <div class=" h4 bg-white "><a href="{% url 'forums' x.categoryName %}"
+                                    class=" h4 header-font ">{{ x.categoryName }}</a>
+                            </div>
+                            <hr class="hr-category">
+                            <p class="ctg-desc text-muted">{{ x.Categorydescription }}</p>
+                        </div>
+                        <div class="col-md-1  forum-info">
+                            <span class="views-number">
+                                {{ x.totalPost }}
+                            </span>
+                            <div>
+                                <small class="text-muted">Posts</small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1 forum-info  px-2 total-message ml-4">
+                            <span class="views-number">
+                                {{ x.totalMessage }}
+                            </span>
+                            <div class="">
+                                <small class="text-muted ">Messages</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <hr>
+                    {% for x in category %}
+                    {% if x.categoryName == 'Deep Web' %}
+
+                    <div class=" row my-2">
+
+                        <div class="col-md-8 mt-2">
+                            <div class="forum-icon ">
+                                {{ x.categoryBrand | safe }}
+                            </div>
+                            <div class=" h4 bg-white "><a href="{% url 'forums' x.categoryName %}"
+                                    class=" h4 header-font ">{{ x.categoryName }}</a>
+                            </div>
+                            <hr class="hr-category">
+                            <p class="ctg-desc text-muted">{{ x.Categorydescription }} </p>
+                        </div>
+                        <div class="col-md-1  forum-info">
+                            <span class="views-number">
+                                {{ x.totalPost }}
+                            </span>
+                            <div>
+                                <small class="text-muted">Posts</small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1 forum-info  px-2 total-message ml-4">
+                            <span class="views-number">
+                                {{ x.totalMessage }}
+                            </span>
+                            <div class="">
+                                <small class="text-muted ">Messages</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+{% endblock %}

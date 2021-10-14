@@ -1,0 +1,132 @@
+{% extends 'fixed/_base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+    <title>{{categoryName}} - Desponia</title>
+{% endblock %}
+
+{% block content %}
+    
+{% include 'fixed/_alert.html' %}
+    <div class="container ">
+        <div class="navbar mx-4 ">
+            <div class="col-lg-9 col-sm-12  ">
+                <h4 class="topic-header" style="font-size: 50px;"> {{ categoryName }} </h4>
+                <hr>
+                <p>{{ categoryDescription }}</p>
+            </div>
+            {% if user.is_authenticated %}
+                <div class="col-lg-3 col-sm-12 " >
+                    <a href="{% url 'newpost' categoryName %}" class="btn btn-danger btn-forums btn-lg "
+                        style="padding: 15px; width: 150px;">
+                        <i class="fas fa-pencil-alt mr-1"></i> New Post
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+        <div class="navbar py-5"></div>
+    </div>
+
+
+    <div class="container">
+        <div class="">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">{{categoryBrand | safe}} {{categoryName}}</li>
+                </ol>
+              </nav>
+        </div>
+        <div class="card mb-2">
+            <h4 class="card-header text-center topic-header py-3">Latest Posts in {{ categoryName }}</h4>
+            <ul class="list-group">
+                {% for post in pposts %}
+                
+                <li class="list-group-item">
+                    <div class="row  ">
+                        <div class=" col-1   avatar mt-2  " id="latest-image">
+                            <a href="{% url 'users' post.username %}"><img
+                                    src="{{ post.username.profile.image.url }}" class=" avatar-img rounded-circle"
+                                    alt="image post"></a>
+                        </div>
+                        <div class="col-7 post-title-col ">
+                            <div class="  ml-2  mb-2 ">
+                                <a href="{% url 'detail' post.id %}" class="text-dark title-posts mt-2">
+                                    {{post.postTitle}}
+                                </a>
+                            </div>
+                            <div class="  ">
+                                <div class=" row  latest-post-info">
+                                    <a href="{% url 'users' post.username %}" class="text-dark  ml-4 mr-3">
+                                        {{post.username}} </a>
+                                    <a href="{% url 'detail' post.id %}" class="text-dark text-muted ">asked
+                                        {{post.created_at | naturaltime}}</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4  post-title-col-info ">
+                            <div class="row">
+                                <div class=" latest-post-info text-muted ">
+                                    <div class="col  mb-1">
+                                        {% if post.answer_count %}
+                                        Answers: {{post.answer_count}}
+                                        {% else %}
+                                        Answers: 0
+                                        {% endif %}
+
+                                    </div>
+                                    <div class="col latest-views">Views: {{ post.post_views }}</div>
+                                </div>
+                                <div class="col latest-post-info ">
+                                    <div class="mb-1 text-muted latest-message">
+                                        {% if post.last_message %}
+                                        {{post.last_message | naturaltime}}
+                                        {% else %}
+                                        none
+                                        {% endif %}
+                                    </div>
+                                    <div class=" ">
+                                        <a href="{% url 'users' post.last_message_username %}"
+                                            class="text-dark  ">
+                                            {% if post.last_message_username %}
+                                            {{post.last_message_username }}
+                                            {% else %}
+                                            None
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    </li>
+
+                {% endfor %}
+
+
+            </ul>
+        </div>
+
+        <nav aria-label="Page navigation example mt-2">
+            <ul class="pagination ">
+                {% if pposts.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page=1">&laquo First</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ pposts.previous_page_number }}">Previous</a></li>
+                {% endif %}
+                <li class="page-item disabled"><a class="page-link bg-success text-white">Page {{pposts.number}} of {{pposts.paginator.num_pages}}</a></li>
+
+                {% if pposts.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ pposts.next_page_number }}">Next</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ pposts.paginator.num_pages }}">Last &raquo</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        
+    </div>
+
+    {% endblock %}
+
+
+

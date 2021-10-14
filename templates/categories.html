@@ -1,0 +1,39 @@
+{% extends 'fixed/_base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+<title>Categories - Desponia</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="container my-5">
+    <div class="card">
+        <div class="card-header text-center">
+            <h1>Categories</h1>
+        </div>
+        <ul class="list-group">
+            {% for category in categories %}
+            <li class="list-group-item list-category">
+                <div class="row">
+                    <div class="col-1 text-center category-div ">
+                        {{ category.categoryBrand | safe }}
+                    </div>
+                    <div class="col ">
+                        <a href="{% url 'forums' category %}">
+                            {{ category }}
+                        </a>
+                        <hr>
+                        <p class="text-muted"> {{ category.Categorydescription }} </p>
+                    </div>
+
+                </div>
+
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'fixed/_base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Contact - Desponia</title>
+{% endblock %}
+
+{% block content %}
+<div class="container my-5 contact-page text-center">
+    {% include 'fixed/_alert.html' %}
+    <div class="card">
+        <div class="card-body">
+            <span class="material-icons-outlined logo-contact">
+                mail
+            </span>
+            <h1>Support & Feedback</h1>
+            <div class="col-md-6 mt-3  mx-auto">
+                <h4>For your questions, comments and complaints, please fill in the form below and send it to us. You can also reach us at the e-mail addresses below.</h4>
+                <h4 class="my-3 mt-4 mr-5"><i class="far fa-envelope"></i> no-reply@desponia.com</h4>
+                <h4><i class="far fa-envelope "></i> desponia.contact@gmail.com</h4>
+                <h4 class="my-3 mr-4 mb-4"><i class="far fa-envelope"></i> desponiateam@gmail.com</h4>
+            </div>
+        </div>
+    </div>
+
+    <form  method="POST">
+        {% csrf_token %}
+        {{form}}
+        <button type="submit" class="btn btn-primary btn-block mt-4">Submit</button>
+    </form>
+</div>
+{% endblock %}

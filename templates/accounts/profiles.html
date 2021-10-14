@@ -1,0 +1,50 @@
+{% extends 'fixed/_base.html' %}
+
+{% load static %}
+
+{% block title %}
+    <title> {{ userinfo }} - Desponia</title>
+{% endblock %}
+
+{% block content %}
+<section class="profile">
+    <header class="header ">
+        <div class="details ">
+            {% include 'fixed/_alert.html' %}
+            <img src="{{ userinfo.profile.image.url }}" alt="{{ userinfo }}" class="img-responsive profile-pic">
+            <h1 class="heading"> {{userinfo}} </h1>
+            <p class="text-dark"><i class="far fa-calendar-alt"></i> {{ userinfo.date_joined | date }} </p>
+            {% if request.user == userinfo %}
+                <a href="{% url 'update' %}" class="text-dark "><i class="fas fa-user-edit"></i>Edit</a>
+            {% endif %}
+            <div class="location">
+                <img class="profile-ranks-gif mt-2 " src="{{ userinfo.userranks.rank_image_url }}"
+                alt="{{ userinfo.userranks.rank_name }}" title="{{ userinfo.userranks.rank_name }}">
+            </div>
+            <div class="title-effect">
+                <h1 class="rank-name-profile">{{ userinfo.userranks.rank_name }}</h1>
+            </div>
+            <div class="stats">
+                <div class="col-4">
+                    <h4>{{userinfo.total_post}}</h4>
+                    <p>Posts</p>
+                </div>
+                <div class="col-4">
+                    <h4>{{userinfo.userranks.score}}</h4>
+                    <p>Score</p>
+                </div>
+                <div class="col-4">
+                    <h4>{{userinfo.total_message}}</h4>
+                    <p>Messages</p>
+                </div>
+            </div>
+            <br>  
+            <div class="card  signature">
+                <hr class="style-two">    
+                <p>{{userinfo.signature | safe}}</p>
+                <hr class="style-two">    
+            </div>
+        </div>
+    </header>
+</section>
+{% endblock %}

@@ -1,0 +1,282 @@
+body {
+    background-color: #181A1B !important;
+    transition: 300ms all;
+    color: rgb(209 205 199) !important;
+}
+
+.card {
+    background-color: rgb(24, 26, 27) !important;
+    border-color: rgba(140, 130, 115, 0.13) !important;
+}
+
+.card-header {
+    border-color: rgba(146, 144, 23, 0.13) !important;
+    background-color: rgb(0, 0, 0) !important;
+}
+
+.modal-content {
+    background-color: rgb(24, 26, 27);
+    border-color: rgba(140, 130, 115, 0.2);
+    outline-color: initial;
+}
+
+.alert-success {
+    color: rgb(153, 230, 171) !important;
+    background-color: rgb(26, 62, 41) !important;
+    border-color: rgb(37, 90, 50)!important;
+}
+
+.list-group-item {
+    background-color: rgb(24, 26, 27) !important;
+    border-color: rgba(140, 130, 115, 0.13) !important;
+}
+
+hr.dotted {
+    border-top-color: rgb(67, 73, 76) !important;
+}
+
+.news-item {
+    border-bottom: 1px dotted #555 !important;
+}
+
+.text-dark {
+    color: rgb(195, 190, 182) !important;
+}
+
+.text-muted {
+    color: rgb(158, 150, 137) !important;
+}
+
+.bg-white {
+    background-color: rgb(24, 26, 27) !important;
+}
+
+a.header-font {
+    color: rgb(221, 218, 213);
+}
+
+hr.dotted {
+    border-top-color: rgb(67, 73, 76);
+}
+
+a.text-dark:hover, a.text-dark:focus {
+    color: rgb(158, 150, 137) !important;
+}
+
+.media-user {
+    background-color: rgb(28, 30, 31) !important;
+    border-right-color: rgb(39, 51, 71) !important;
+}
+
+.post .author-info ul li {
+    background-color: rgb(28, 30, 31) !important;
+}
+
+.post .post-type a {
+    color: rgb(232, 230, 227) !important;
+}
+
+.sign {
+    box-shadow: rgb(0 0 0 / 20%) 0px 4px 8px 0px, rgb(0 0 0 / 19%) 0px 6px 20px 0px !important;
+    background-color: rgb(32, 35, 36) !important;
+}
+
+.breadcrumb {
+    list-style-image: initial;
+    background-color: rgb(35, 38, 39) !important;
+}
+
+a {
+    text-decoration-color: initial;
+    background-color: transparent;
+}
+
+.navbar-dark .navbar-brand {
+    color: rgb(232, 230, 227) !important;
+}
+
+.vt-post.post .caption {
+    border-top-color: rgb(140, 130, 115) !important;
+}
+
+hr {
+    border-right-color: initial;
+    border-bottom-color: initial;
+    border-left-color: initial;
+    border-top-color: rgba(140, 130, 115, 0.1) !important;
+}
+
+.caption h4 {
+    color: rgb(223, 220, 216) !important;
+}
+
+.sign * {
+    color: rgb(232, 230, 227) !important;
+}
+
+.fr-toolbar .fr-more-toolbar {
+    background-color: rgb(30, 32, 33) !important;
+}
+
+.fr-toolbar {
+    background-image: initial;
+    background-color: rgb(24, 26, 27) !important;
+    border-color: rgb(62, 68, 70) !important;
+    color: rgb(220, 217, 212) !important;
+}
+
+.fr-toolbar .fr-command.fr-btn, .fr-popup .fr-command.fr-btn, .fr-modal .fr-command.fr-btn {
+    background-image: initial;
+    background-color: transparent;
+    color: rgb(200, 195, 188);
+    outline-color: initial;
+    border-color: initial;
+    text-decoration-color: initial;
+}
+
+.fr-toolbar .fr-command.fr-btn svg path, .fr-popup .fr-command.fr-btn svg path, .fr-modal .fr-command.fr-btn svg path {
+    fill: rgb(200, 195, 188) !important;
+}
+
+.fr-desktop .fr-command:hover:not(.fr-table-cell), .fr-desktop .fr-command:focus:not(.fr-table-cell), .fr-desktop .fr-command.fr-btn-hover:not(.fr-table-cell), .fr-desktop .fr-command.fr-expanded:not(.fr-table-cell) {
+    background-image: initial;
+    background-color: rgb(35, 38, 40) !important;
+}
+
+.fr-toolbar .fr-command.fr-btn.fr-open:not(:hover):not(:focus):not(:active) {
+    background-image: initial;
+    background-color: rgb(30, 32, 33) !important;
+}
+
+.fr-dropdown-content {
+    background-color: rgb(35, 38, 40) !important;
+}
+
+.fr-popup {
+    color: rgb(211, 207, 201) !important;
+    background-image: initial;
+    background-color: rgb(24, 26, 27) !important;
+    box-shadow: rgb(0 0 0 / 20%) 0px 3px 5px -1px, rgb(0 0 0 / 14%) 0px 6px 10px 0px, rgb(0 0 0 / 12%) 0px 1px 18px 0px;
+}
+
+.fr-box.fr-basic .fr-wrapper {
+    background-image: initial;
+    background-color: rgb(24, 26, 27) !important;
+    border-color: rgb(62, 68, 70) rgb(62, 68, 70) rgb(53, 57, 59) !important;
+}
+
+.second-toolbar {
+    border-right-color: rgb(62, 68, 70) !important;
+    border-bottom-color: rgb(62, 68, 70) !important;
+    border-left-color: rgb(62, 68, 70) !important;
+    border-top-color: initial;
+    background-image: initial;
+    background-color: rgb(24, 26, 27) !important;
+}
+
+.fr-toolbar .fr-newline {
+    background-image: initial;
+    background-color: rgb(33, 36, 37) !important;
+}
+
+.signature {
+    background-image: initial;
+    background-color: transparent !important;
+    border-color: initial !important;
+}
+
+.dropdown-menu {
+    color: rgb(209, 205, 199) !important;
+    list-style-image: initial;
+    background-color: rgb(24, 26, 27) !important;
+    border-color: rgba(140, 130, 115, 0.15) !important;
+}
+
+.dropdown-item {
+    color: rgb(209, 205, 199) !important;
+    background-color: transparent !important;
+    border-color: initial;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+    color: rgb(217, 213, 208) !important;
+    text-decoration-color: initial !important;
+    background-color: rgb(35, 38, 39) !important;
+}
+
+.fr-box.fr-basic .fr-element {
+    color: rgb(191, 185, 177) !important;
+}
+
+.form-control {
+    color: rgb(181, 175, 166) !important;
+    background-color: rgb(24, 26, 27) !important;
+    border-color: rgb(60, 65, 68) !important;
+}
+
+.pagination a {
+    color: rgb(178, 172, 162) !important;
+}
+
+.page-link {
+    color: rgb(51, 162, 255) !important;
+    background-color: rgb(24, 26, 27) !important;
+    border-color: rgb(56, 61, 63) !important;
+}
+
+.page-item.disabled .page-link {
+    color: rgb(255, 255, 255) !important;
+    background-color: rgb(31, 180, 17) !important;
+    border-color: rgb(56, 61, 63) !important;
+}
+
+.speech-bubble {
+    background-image: initial;
+    background-color: rgb(36, 54, 55) !important;
+}
+
+.speech-bubble::after {
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    border-right-color: rgb(57, 62, 64) !important;
+    border-left-color: initial;
+}
+
+.list-category a {
+    color: #ddd !important;
+}
+
+.jumbo-advertisement {
+    background-color: transparent !important;
+}
+
+.dropdown-item p {
+    color: rgb(184, 184, 184);
+}
+
+.signup-content {
+    background-color:black !important;
+}
+
+.speech-bubble-small {
+    background-image: initial;
+    background-color: rgb(36, 54, 55) !important;
+}
+
+.caption * {
+    background-color: #181A1B !important;
+    color: rgb(223, 220, 216) !important;
+}
+.caption a span {
+    color: rgb(44, 32, 158) !important;
+}
+.caption a  {
+    color: rgb(44, 32, 158) !important;
+}
+
+blockquote {
+    background-image: initial !important;
+    background-color: rgb(22, 35, 41) !important;
+    border-color: rgb(55, 60, 62) !important;
+    color: rgb(180, 174, 164) !important;
+}

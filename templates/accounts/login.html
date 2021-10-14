@@ -1,0 +1,48 @@
+{% extends 'fixed/_base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Login -Desponia</title>
+{% endblock %}
+
+{% block content %}
+        {% if user.is_authenticated %}
+        <div class="row my-5">
+            <div class="col-md-6 mx-auto mb-5  text-center">
+                <h1>You are already logged in..</h1>
+                <hr>
+                <a href="/" class="h5">Go home</a>
+            </div>
+        </div>
+            
+        {% else %}
+            <div class="row my-5">
+                <div class="col-md-6 mx-auto mb-5">
+                    <div class="card">
+                        <div class="card-header bg-dark text-white">
+                            <h3 class="text-center">Login</h3>
+                        </div>
+                        {% include 'fixed/_alert.html' %}
+
+                        <div class="card-body">
+                            <form action="{% url 'login' %}" method="POST">
+                                {% csrf_token %}
+                                <div class="form-group my-4 mb-5">
+                                    {{ form.username }}
+                                </div>
+                                <div class="form-group my-4">
+                                    {{ form.password }}
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block">Login</button>
+                            </form>
+                        </div>
+                        <div class="card-footer ">
+                            <a href="{% url 'reset_password' %}" class="text-center">
+                                <p class="mt-2">Forgot Password?</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+{% endblock %}

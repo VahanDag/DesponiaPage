@@ -1,0 +1,34 @@
+{% extends 'fixed/_base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+{% if request.user == postDetail.username %}
+
+    <div class="container-md ">
+        <div class="my-5">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.media }}
+                <div class="form-group formPost">
+                    {{ form.postTitle }}
+                </div>
+                <div class="form-group formPost">
+                    {{ form.postContent }}
+                </div>
+                <div class="formPost">
+                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% else %}
+
+<h1>Giris Yap</h1>
+
+{% endif %}
+
+
+{% endblock %}

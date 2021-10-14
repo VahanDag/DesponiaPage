@@ -1,0 +1,55 @@
+{% extends 'fixed/_base.html' %}
+{% load static %}
+
+{% block title %}
+<title>New Post - Desponia</title>
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+
+
+
+<div class="container-md ">
+    <div class="my-5 text-center">
+        <h1>
+            {{ category.categoryBrand | safe  }} {{ category }}
+        </h1>
+        <hr class="hr-newpost">
+
+    </div>
+
+    <div class="my-5">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.media }}
+            <div class="form-group ">
+                {{ form.postTitle }}
+            </div>
+            <div class="form-group ">
+                {{ form.postContent }}
+            </div>
+            <div class="form-group ">
+                {{ form.category }}
+            </div>
+            <div class="form-group ">
+                {{ form.username }}
+            </div>
+            <div class="">
+                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% else %}
+<div class="row my-5">
+    <div class="col-md-6 mx-auto mb-5  text-center">
+        <h1>You must be logged in to post a new post.</h1>
+        <hr>
+        <a href="{% url 'login' %}">Click this link to go to the login page</a>
+    </div>
+</div>
+
+{% endif %}
+{% endblock %}

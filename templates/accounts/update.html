@@ -1,0 +1,29 @@
+{% extends 'fixed/_base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    <title> Profile Update - Desponia</title>
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    {% include 'fixed/_alert.html' %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ u_form.media }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4 h2">Update Profile</legend>
+            {{ u_form | crispy }}
+            {{ p_form | crispy }}
+        </fieldset>
+        <div class="form-group">
+            <input class="btn btn-outline-info btn-block" type="submit" value="Update">
+        </div>
+    </form>
+</div>
+
+
+
+{% endblock %}

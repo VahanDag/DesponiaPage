@@ -1,0 +1,531 @@
+{% extends 'fixed/_base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+{% load pages_extras %}
+
+{% block title %}
+<title> {{ detail }} - Desponia</title>
+{% endblock %}
+
+<!-- POST -->
+<div class="container  my-5">
+    <div class="jumbotron jumbo-advertisement "></div>
+    {% if user.is_authenticated %}
+    <div class="row  ">
+        <div class="col-lg-10">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                    <li class="breadcrumb-item" aria-current="page"><a href="{% url 'forums' detail.category %}">
+                            {{detail.category.categoryBrand | safe}} {{detail.category}}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{detail}}</li>
+
+                </ol>
+            </nav>
+        </div>
+        <div class="col-lg-2">
+            <a href="{% url 'newpost' detail.category %}" class="btn btn-danger btn-detail btn-lg ">
+                <i class="fas fa-pencil-alt mr-1"></i> New Post
+            </a>
+        </div>
+
+    </div>
+    {% else %}
+    <div class="col-lg-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                <li class="breadcrumb-item" aria-current="page"><a href="{% url 'forums' detail.category %}">
+                        {{detail.category.categoryBrand | safe}} {{detail.category}}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{detail}}</li>
+
+            </ol>
+        </nav>
+    </div>
+    {% endif %}
+
+    <div class="row ">
+        <div class="col-md-12 col-lg-12   pt-3">
+            {% include 'fixed/_alert.html' %}
+
+            <article class="post vt-post card">
+                <div class="row ">
+                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-3  media-user  ">
+                        <div class="post-type post-img-once post-img">
+                            <a href="{% url 'users' detail.username %}"><img
+                                    src="{{ detail.username.profile.image.url }}" class="img-responsive rounded-circle"
+                                    alt="image post"></a>
+                            <a href="{% url 'users' detail.username %}" class="mt-3"> {{ detail.username}} </a>
+                        </div>
+                        <div class="author-info author-info-2 ">
+                            <ul class="list-group list-group-flush ">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <img class="ranks-gif" src="{{ detail.username.userranks.rank_image_url }}"
+                                        alt="{{ detail.username.userranks.rank_name }}"
+                                        title="{{ detail.username.userranks.rank_name }}">
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Messages
+                                    <span
+                                        class="badge badge-primary badge-pill">{{detail.username.total_message}}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Posts
+                                    <span class="badge badge-primary badge-pill">{{detail.username.total_post}}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Score
+                                    <span
+                                        class="badge badge-primary badge-pill">{{detail.username.userranks.score}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-9 " id="user-post-info">
+                        <div class=" mr-3 col">
+                            <span class=" text-muted date  pt-2">Asked {{detail.created_at| naturaltime }}</span>
+                            <span class=" text-muted social-media py-1 ">
+
+                            </span>
+                        </div>
+                        <div class="caption">
+                            <h4> {{detail.postTitle}} </h4>
+                            <hr>
+                            <p> {{detail.postContent | safe}}</p>
+
+                        </div>
+                        <div class=" content-action mx-3 ">
+                            <span class="like-dislike mr-2">
+                                <form class="btn-group  mt-1 " id="like-form" action="{% url 'like_post' detail.pk %}"
+                                    method="POST">
+                                    {% csrf_token %}
+                                    {% if request.user.is_authenticated %}
+                                    {% if detail.username_id == request.user.id %}
+                                    <button class="btn btn-primary btn-sm" title="You can't like your post"
+                                        disabled>Like</button>
+                                    {% else %}
+                                    {% if request.user in likeList %}
+                                    <button class="btn buton-like btn-sm btn-danger like-btn " type="submit"
+                                        name="userposts_id" value="{{ detail.id }}"> Unlike
+                                    </button>
+                                    {% else %}
+                                    <button class="btn buton-like btn-sm btn-primary " type="submit" name="userposts_id"
+                                        value="{{ detail.id }}"> Like
+                                    </button>
+                                    {% endif %}
+                                    {% endif %}
+                                    {% else %}
+                                    <span class="px-2 pt-1">
+                                        <a href="{% url 'login' %}" class="">Login</a> to like
+                                    </span>
+                                    {% endif %}
+                                    <span class="bg-dark px-4 pt-1  like-count text-white"> {{ total_post_likes}}</span>
+                                </form>
+                            </span>
+                            <div class="py-1 ">
+                                {% if user.is_authenticated %}
+                                {% if detail.username != request.user %}
+                                <a href="" class="text-dark ml-2" data-target="#ReportPost" data-toggle="modal"><i
+                                        class="far fa-bell"></i> Report</a>
+                                {% endif %}
+                                {% endif %}
+                                <!-- Button trigger modal -->
+                                <!-- Modal -->
+                                <div class="modal fade" id="ReportPost" tabindex="-1" role="dialog"
+                                    aria-labelledby="ReportPostLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h3 class="modal-title" id="ReportPostLabel">Report Post</h3>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-check">
+                                                    <form action="{% url 'report-post' detail.id %}"
+                                                        value="{{ detail.id }}" method="POST">
+                                                        {% csrf_token %}
+                                                        <ul class="list-group list-report">
+                                                            <li class="list-group-item">
+                                                                <input class="form-check-input" type="radio"
+                                                                    id="report1" name="report" value="1" checked>
+                                                                <label class="form-check-label"
+                                                                    for="report1">Nudity</label><br>
+                                                            </li>
+
+                                                            <li class="list-group-item">
+                                                                <input class="form-check-input" type="radio"
+                                                                    id="report2" name="report" value="2">
+                                                                <label class="form-check-label" for="report2">False
+                                                                    Information</label><br>
+                                                            </li>
+
+                                                            <li class="list-group-item">
+                                                                <input class="form-check-input" type="radio"
+                                                                    id="report3" name="report" value="3">
+                                                                <label class="form-check-label"
+                                                                    for="report3">Spam</label><br>
+                                                            </li>
+                                                            <li class="list-group-item">
+
+                                                                <input class="form-check-input" type="radio"
+                                                                    id="report4" name="report" value="4">
+                                                                <label class="form-check-label" for="report4">Hate
+                                                                    Speech</label><br>
+                                                            </li>
+                                                            <li class="list-group-item">
+
+                                                                <input class="form-check-input" type="radio"
+                                                                    id="report5" name="report" value="5">
+                                                                <label class="form-check-label" for="report5">Suicide or
+                                                                    Self-Injury</label><br>
+                                                            </li>
+                                                            <li class="list-group-item">
+
+                                                                <input class="form-check-input" type="radio"
+                                                                    id="report6" name="report" value="6">
+                                                                <label class="form-check-label"
+                                                                    for="report6">Harassment</label><br>
+                                                            </li>
+                                                            <li class="list-group-item">
+
+                                                                <input class="form-check-input" type="radio"
+                                                                    id="report7" name="report" value="7">
+                                                                <label class="form-check-label"
+                                                                    for="report7">Terrorism</label><br>
+                                                            </li>
+                                                            <li class="list-group-item">
+
+                                                                <input class="form-check-input" type="radio"
+                                                                    id="report8" name="report" value="8">
+                                                                <label class="form-check-label"
+                                                                    for="report8">Violence</label><br>
+                                                            </li>
+
+                                                        </ul>
+                                                        <div class="modal-footer">
+                                                            <input class="btn btn-primary btn-block" type="submit"
+                                                                value="Submit">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                {% if detail.username_id == request.user.id %}
+                                <a href="{% url 'post-update' detail.pk %}" class="text-dark ml-2 mx-3">
+                                    <i class="fas fa-pencil-alt"></i> Edit
+                                </a>
+                                <a href="{% url 'post-delete' detail.pk %}" class="text-dark">
+                                    <i class="fas fa-trash-alt"></i> Delete
+                                </a>
+                                {%endif%}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mr-3 text-center px-4 sign">
+                        <p> {{ sign.signature | safe }} </p>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>
+
+<!-- MESSAGES -->
+<div class="container   my-5 ">
+
+    <div class="row">
+        <div class=" col-lg-9 col-md-8 col-sm-12   pt-3">
+            {% for message in p_messages %}
+            <a id="{{ message.pk }}"></a>
+            <a href="#{{ message.pk }}"> link</a>
+
+            <article class="post vt-post card ">
+                <div class="row ">
+                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-3  media-user  ">
+                        <div class="post-type  message-img">
+                            <a href="{% url 'users' message.username %}"><img
+                                    src="{{ message.username.profile.image.url }}" class="img-responsive rounded-circle"
+                                    alt="image post"></a>
+                            <a href="{% url 'users' message.username %}" class="mt-3"> {{ message.username}} </a>
+                        </div>
+                        <div class="author-info author-info-2 ">
+                            <ul class="list-group list-group-flush ">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <img class="ranks-gif-message" src="{{message.username.userranks.rank_image_url }}"
+                                        alt="{{ message.username.userranks.rank_name }}"
+                                        title="{{ message.username.userranks.rank_name }}">
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Messages
+                                    <span
+                                        class="badge badge-primary badge-pill">{{message.username.total_message}}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Posts
+                                    <span class="badge badge-primary badge-pill">{{message.username.total_post}}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Score
+                                    <span
+                                        class="badge badge-primary badge-pill">{{message.username.userranks.score}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-9 " id="user-post-info">
+                        <div class="mr-3 col ">
+                            <span class=" text-muted date py-1">
+                                <i class="far fa-clock "></i> Answered {{message.created_at| naturaltime }}
+                            </span>
+
+                            <!-- Default dropup button -->
+                            <div class="dropleft reply-info">
+                                <a id="my-dropdown" href="#" data-toggle="dropdown">
+                                    <div class="material-icons-outlined reply-info mt-1 ml-1">
+                                        share
+                                    </div>
+                                </a>
+
+                                <div class="dropdown-menu text-center">
+                                    <div class="container">
+                                        <button onclick="copyFunction('{{message.id}}')" class="btn btn-dark btn-sm mb-2">Copy</button>
+                                        <input id="copyInput{{message.id}}" class="border" type="text" value="http://127.0.0.1:8000/posts/{{detail.id}}?page={{pagenumber}}#{{message.id}}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% if message.replies %}
+                            <span class=" text-muted reply-info  py-1 ml-1">
+                                Answered to <a href="{% url 'users' message.replies.username %}"
+                                    class="text-dark">{{message.replies.username }} </a>
+                            </span>
+                            {% endif %}
+                        </div>
+
+                        <div class="caption ">
+                            {% if message.replies %}
+                            <blockquote class="otro-blockquote">
+                                {{message.replies.postMessages | safe}}
+                            </blockquote>
+                            {% endif %}
+                            {{message | safe }}
+                        </div>
+                        <div class=" content-action mx-3 ">
+                            <span class="like-dislike mr-2">
+                                <form class="btn-group  mt-1 like-form-message" name="{{ message.id }}"
+                                    action="{% url 'like_message' message.pk %}" method="POST">
+                                    {% csrf_token %}
+                                    {% if request.user.is_authenticated %}
+                                    {% if message.username_id == request.user.id %}
+                                    <button class="btn btn-primary btn-sm" title="You can't like your message"
+                                        disabled>Like</button>
+                                    {% else %}
+                                    {% if request.user in message.like_message.all %}
+                                    <button class="btn btn-danger btn-sm text-white btn-like{{ message.id }} "
+                                        type="submit" name="usermessages_id" value="{{ message.id }}"
+                                        id="{{ message.id }}"> Unlike
+                                    </button>
+                                    {% else %}
+                                    <button class="btn btn-primary btn-sm text-white btn-like{{ message.id }} "
+                                        type="submit" name="usermessages_id" value="{{ message.id }}"
+                                        id="{{ message.id }}"> Like
+                                    </button>
+                                    {% endif %}
+                                    {% endif %}
+                                    {% else %}
+                                    <span class="px-2 pt-1">
+                                        <a href="{% url 'login' %}" class="">Login</a> to like
+                                    </span>
+                                    {% endif %}
+                                    <span class="bg-dark px-4 pt-1 messageTotal{{ message.id }}  text-white"
+                                        id="{{ message.id }}">{{ message.total_like }}</span>
+                                    {% if user.is_authenticated %}
+                                    {% if message.username_id != request.user.id %}
+                                    <span class="mx-3">
+                                        <a class="text-dark" href="{% url 'reply-message' message.pk %}">
+                                            <i class="fas fa-reply"></i> Reply
+                                        </a>
+                                    </span>
+                                    {% endif %}
+                                    {% endif %}
+                                </form>
+                            </span>
+                            <div class="py-1 ">
+                                {% if user.is_authenticated %}
+                                {% if message.username_id != request.user.id %}
+                                <a href="" class="text-dark ml-2" data-toggle="modal"
+                                    data-target="#ReportMessage{{message.id}}"><i class="far fa-bell"></i> Report</a>
+                                {% endif %}
+                                {% endif %}
+                                <!-- Button trigger modal -->
+                                <!-- Modal -->
+                                <div class="modal fade" id="ReportMessage{{message.id}}" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h3 class="modal-title " id="exampleModalLabel">Report Message</h3>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-check">
+                                                    <form action="{% url 'report-message' message.id %}"
+                                                        value="{{ message.id }}" method="POST">
+                                                        {% csrf_token %}
+                                                        <ul class="list-group list-report">
+                                                            <li class="list-group-item">
+                                                                <input class="form-check-input" type="radio"
+                                                                    id="report1" name="report" value="1" checked>
+                                                                <label class="form-check-label"
+                                                                    for="report1">Nudity</label><br>
+                                                            </li>
+
+                                                            <li class="list-group-item">
+                                                                <input class="form-check-input" type="radio"
+                                                                    id="report2" name="report" value="2">
+                                                                <label class="form-check-label" for="report2">False
+                                                                    Information</label><br>
+                                                            </li>
+
+                                                            <li class="list-group-item">
+                                                                <input class="form-check-input" type="radio"
+                                                                    id="report3" name="report" value="3">
+                                                                <label class="form-check-label"
+                                                                    for="report3">Spam</label><br>
+                                                            </li>
+                                                            <li class="list-group-item">
+
+                                                                <input class="form-check-input" type="radio"
+                                                                    id="report4" name="report" value="4">
+                                                                <label class="form-check-label" for="report4">Hate
+                                                                    Speech</label><br>
+                                                            </li>
+                                                            <li class="list-group-item">
+
+                                                                <input class="form-check-input" type="radio"
+                                                                    id="report5" name="report" value="5">
+                                                                <label class="form-check-label" for="report5">Suicide or
+                                                                    Self-Injury</label><br>
+                                                            </li>
+                                                            <li class="list-group-item">
+
+                                                                <input class="form-check-input" type="radio"
+                                                                    id="report6" name="report" value="6">
+                                                                <label class="form-check-label"
+                                                                    for="report6">Harassment</label><br>
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <input class="form-check-input" type="radio"
+                                                                    id="report7" name="report" value="7">
+                                                                <label class="form-check-label"
+                                                                    for="report7">Terrorism</label><br>
+                                                            </li>
+                                                            <li class="list-group-item">
+
+                                                                <input class="form-check-input" type="radio"
+                                                                    id="report8" name="report" value="8">
+                                                                <label class="form-check-label"
+                                                                    for="report8">Violence</label><br>
+                                                            </li>
+
+                                                        </ul>
+                                                        <div class="modal-footer">
+                                                            <input class="btn btn-primary btn-block" type="submit"
+                                                                value="Report">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {% if message.username_id == request.user.id %}
+                                <a href="{% url 'message-update' message.pk %}" class="text-dark mx-3"><i
+                                        class="fas fa-pencil-alt"></i> Edit</a>
+                                <a href="{% url 'message-delete' message.pk %}" class="text-dark">
+                                    <i class="fas fa-trash-alt"></i> Delete</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mr-3 text-center   px-4  sign">
+                        <p> {{ message.username.signature | safe }} </p>
+                    </div>
+                    <div class="collapse" id="collapse{{message.id}}">
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{form_reply.media}}
+                            {{ form_reply }}
+                        </form>
+                    </div>
+                </div>
+            </article>
+
+            {% endfor %}
+            <nav aria-label="Page navigation example ">
+                <ul class="pagination  ">
+                    {% if p_messages.has_previous %}
+                    <li class="page-item "><a class="page-link " href="?page=1">&laquo First</a></li>
+                    <li class="page-item"><a class="page-link"
+                            href="?page={{ p_messages.previous_page_number }}">Previous</a></li>
+                    {% endif %}
+                    <li class="page-item disabled "><a class="page-link bg-success text-white ">Page
+                            {{p_messages.number}}
+                            of {{p_messages.paginator.num_pages}}</a></li>
+
+                    {% if p_messages.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ p_messages.next_page_number }}">Next</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="?page={{ p_messages.paginator.num_pages }}">Last
+                            &raquo</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% if request.user.is_authenticated %}
+            <div class="comment-user mt-5">
+                <form method="POST" class=" " action="{% url 'detail' detail.pk  %}">
+                    {% csrf_token %}
+                    {{form.media}}
+                    <div class="form-group ">
+                        {{ form }}
+                    </div>
+                    <div class="">
+                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                    </div>
+                </form>
+            </div>
+            {% else %}
+            <div class="card">
+                <div class="card-body text-center detail-info-login">
+                    You must be logged in to reply. <a href="{% url 'login' %}">Login.</a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="col-lg-3 col-md-4 mt-3 ">
+            <div class="marquee-div  mt-4">
+                <ul class="list-group ">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
