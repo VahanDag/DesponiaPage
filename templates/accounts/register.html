@@ -22,7 +22,7 @@
         <div class="container-register">
             <h2 class="card-header bg-dark form-title text-white">Create Account</h2>
             {% include 'fixed/_alert.html' %}
-            <div class="signup-content">
+            <div class="signup-content bg-light">
                 <form action="{% url 'register' %}" method="POST" class="signup-form">
                     {% csrf_token %}
                     <div class="form-group">
