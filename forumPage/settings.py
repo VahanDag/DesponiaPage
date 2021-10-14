@@ -14,6 +14,8 @@ from django.contrib.messages import constants as messages
 import os
 from pathlib import Path
 from decouple import config
+import django_heroku
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -142,7 +144,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
 
-# STATIC_URL = '/static/'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media")
@@ -179,3 +181,5 @@ EMAIL_USE_SSL = True
 EMAIL_USE_TLS = False
 EMAIL_PORT=465
 DEFAULT_FROM_EMAIL = 'no-reply@desponia.com'
+
+django_heroku.settings(locals())
