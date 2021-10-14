@@ -14,3 +14,11 @@ pytz==2021.1
 pyzmq==22.0.3
 requests==2.25.1
 whitenoise==5.3.0
+python-dateutil==2.8.1
+asgiref==3.4.1
+docutils==0.17.1
+gitdb==4.0.7
+GitPython==3.1.18
+six==1.15.0
+sqlparse==0.4.1
+urllib3==1.26.3
