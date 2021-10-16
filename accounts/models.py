@@ -9,7 +9,7 @@ from django.templatetags.static import static
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 from froala_editor.fields import FroalaField
-
+from tinymce import models as tinymce_models
 
 
 class Profile(models.Model):
@@ -19,8 +19,8 @@ class Profile(models.Model):
     total_message = models.IntegerField(null=True,blank=True,verbose_name="Total Message", default=0)
     total_post = models.IntegerField(null=True,blank=True,verbose_name="Total Post", default=0)
     is_email_verified = models.BooleanField(default=False)
-    signature = FroalaField(null=True, verbose_name="Signature")
-    
+    signature = tinymce_models.HTMLField(blank=True, null=True, verbose_name ="Signature")
+
     def __str__(self):
         return f"{self.user.username} Profile"
 

@@ -4,11 +4,12 @@ from django.db import models
 from django.urls import reverse
 from django.db import models
 from froala_editor.fields import FroalaField
+from tinymce import models as tinymce_models
 
 
 class UserPosts(models.Model):
     postTitle = models.CharField(max_length=100, verbose_name="Title")
-    postContent = FroalaField(null=True, verbose_name="Content")
+    postContent = tinymce_models.HTMLField(null=True, verbose_name="Content")
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="Category", null=True,blank=True)
     created_at = models.DateTimeField(
         auto_now_add=True, verbose_name="Date of upload")
@@ -32,7 +33,7 @@ class UserPosts(models.Model):
 
         
 class UserMessages(models.Model):
-    postMessages = FroalaField(null=True, verbose_name="Message")
+    postMessages = tinymce_models.HTMLField(null=True, verbose_name="Messages")
     post = models.ForeignKey(
         UserPosts, on_delete=models.CASCADE, verbose_name="Linked Post", null=True)
     created_at = models.DateTimeField(

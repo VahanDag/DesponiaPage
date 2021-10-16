@@ -13,7 +13,7 @@
     <div class="jumbotron jumbo-advertisement "></div>
 
     {% include 'fixed/_alert.html' %}
-    
+
     <div class="row ">
         <aside class="col-lg-3 col-md-12 col-sm-12">
             <div class="marquee-div ">
@@ -111,9 +111,19 @@
             <br><br><br>
             <!--content here-->
             <nav class="navbar bg-dark  categories-intro">
-                <img class="img-intro-1" src="{% static 'image/default.jpg' %}" alt="">
-                <h4 class=" text-white text-center " style="font-size:40px">Categories</h4>
-                <img class="img-intro-2" src="{% static 'image/default.jpg' %}" alt="">
+                <div class="row">
+                    <div class="col-2 border">
+                        <img class="img-intro-1" src="{% static 'image/default.jpg' %}" alt="">
+                    </div>
+                    <div class="col-8  text-center">
+                        <h4 class=" text-white  " style="font-size:40px">Categories</h4>
+
+                    </div>
+                    <div class="col-2 border">
+                        <img class="img-intro-2" src="{% static 'image/default.jpg' %}" alt="">
+                    </div>
+                </div>
+
             </nav>
             <br>
             <div class="card mt-5">

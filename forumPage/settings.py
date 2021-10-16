@@ -31,7 +31,7 @@ SECRET_KEY = config("SECRET_KEY")
 DEBUG = True
 
 # ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
-ALLOWED_HOSTS = ["desponia-page.herokuapp.com"]
+ALLOWED_HOSTS = ["desponia-page.herokuapp.com", "127.0.0.1"]
 
 
 # Application definition
@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "userposts",
     # "ckeditor_uploader",
     # "django_quill",
+    'tinymce',
     "froala_editor",
     "django.forms",
     # "django_summernote",
@@ -161,16 +162,31 @@ MESSAGE_TAGS = {
 }
 
 
-FROALA_EDITOR_PLUGINS = ( 'char_counter', 'code_beautifier' , 'colors', 'draggable', 'emoticons',
-         'font_family', 'font_size', 'image_manager', 'image', 'inline_style',
-         'link', 'lists', 'quick_insert', 'quote',"table",
-        'url', 'video')
+FROALA_EDITOR_PLUGINS = ('char_counter', 'code_beautifier', 'colors', 'draggable', 'emoticons',
+                         'font_family', 'font_size', 'image_manager', 'image', 'inline_style',
+                         'link', 'lists', 'quick_insert', 'quote', "table",
+                         'url', 'video')
 
 FROALA_EDITOR_OPTIONS = {
-    'height':300,
+    'height': 300,
 }
 
 LOGIN_URL = "login"
+
+TINYMCE_DEFAULT_CONFIG = {
+    "theme": "silver",
+    "height": 500,
+    "plugins": 'image',
+    "menubar": False,
+    "plugins": "advlist,autolink,lists,link,styleselect,image,charmap,print,preview,anchor,"
+    "searchreplace,visualblocks,code,fontselect,fullscreen,insertdatetime,media,table,paste,"
+    "code,help,wordcount",
+    "toolbar": "styleselect fontselect| "
+    "bold italic backcolor | alignleft aligncenter "
+    "alignright alignjustify | bullist numlist  | "
+    "removeformat image  media | preview ",
+    
+}
 
 # EMAIL CONFIG
 
@@ -180,7 +196,7 @@ EMAIL_HOST_USER = "no-reply@desponia.com"
 EMAIL_HOST_PASSWORD = "Vahandaag3196."
 EMAIL_USE_SSL = True
 EMAIL_USE_TLS = False
-EMAIL_PORT=465
+EMAIL_PORT = 465
 DEFAULT_FROM_EMAIL = 'no-reply@desponia.com'
 
 django_heroku.settings(locals())

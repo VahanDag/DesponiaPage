@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Profile
 from django.conf import settings
+from tinymce.widgets import TinyMCE
 
 
 
@@ -60,7 +61,9 @@ class ProfileUpdateForm(forms.ModelForm):
         model = Profile
         fields = ["image","signature"]
 
-
+        widgets = {
+            "signature": TinyMCE(attrs={"class": "form-control "}),
+        }
 
 
 

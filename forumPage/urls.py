@@ -14,15 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import handler400, handler500, url, include
 from django.contrib import admin
 from django.views.static import serve
 from froala_editor import views
-from . import views 
-
+from . import views
 
 
 urlpatterns = [
@@ -32,12 +31,10 @@ urlpatterns = [
     path('users/', include("userposts.urls")),
     path('newpost/', include("posts.urls")),
     path('posts/', include("postdetail.urls")),
-    path('froala_editor/',include('froala_editor.urls')),
-    path('api-auth/', include('rest_framework.urls'))
-
-
-
-] 
+    path('froala_editor/', include('froala_editor.urls')),
+    path('api-auth/', include('rest_framework.urls')),
+    path('tinymce/', include('tinymce.urls')),
+]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

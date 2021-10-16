@@ -231,7 +231,7 @@
                         </div>
                     </div>
                     <div class="card mr-3 text-center px-4 sign">
-                        <p> {{ sign.signature | safe }} </p>
+                        <p> {{ detail.username.profile.signature | safe }} </p>
                     </div>
                 </div>
             </article>
@@ -245,9 +245,6 @@
     <div class="row">
         <div class=" col-lg-9 col-md-8 col-sm-12   pt-3">
             {% for message in p_messages %}
-            <a id="{{ message.pk }}"></a>
-            <a href="#{{ message.pk }}"> link</a>
-
             <article class="post vt-post card ">
                 <div class="row ">
                     <div class="col-xs-12 col-sm-5 col-md-5 col-lg-3  media-user  ">
@@ -463,7 +460,7 @@
                         </div>
                     </div>
                     <div class="card mr-3 text-center   px-4  sign">
-                        <p> {{ message.username.signature | safe }} </p>
+                        <p> {{ message.username.profile.signature | safe }} </p>
                     </div>
                     <div class="collapse" id="collapse{{message.id}}">
                         <form method="POST">

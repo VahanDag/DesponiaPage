@@ -3,6 +3,7 @@ from userposts.models import UserPosts
 from userposts.models import UserMessages
 from froala_editor.widgets import FroalaEditor
 from pages.models import ContactUs
+from tinymce.widgets import TinyMCE
 
 
 class PostForm(forms.ModelForm):
@@ -12,7 +13,7 @@ class PostForm(forms.ModelForm):
 
         widgets = {
             "postTitle": forms.TextInput(attrs={"class": "form-control formEx  ", "placeholder": "Title", "style": "font-size: x-large"}),
-            "postContent": FroalaEditor(attrs={"class": "form-control formEx"}),
+            "postContent": TinyMCE(attrs={"class": "form-control formEx"}),
         }
 
 
@@ -20,6 +21,7 @@ class MessageForm(forms.ModelForm):
     class Meta:
         model = UserMessages
         fields = ("postMessages",)
+        
 
 
 class ContactUsForm(forms.ModelForm):
