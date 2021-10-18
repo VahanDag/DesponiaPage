@@ -20,7 +20,6 @@ from django.conf.urls.static import static
 from django.conf.urls import handler400, handler500, url, include
 from django.contrib import admin
 from django.views.static import serve
-from froala_editor import views
 from . import views
 
 
