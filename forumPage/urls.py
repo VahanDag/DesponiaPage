@@ -31,7 +31,6 @@ urlpatterns = [
     path('users/', include("userposts.urls")),
     path('newpost/', include("posts.urls")),
     path('posts/', include("postdetail.urls")),
-    path('froala_editor/', include('froala_editor.urls')),
     path('api-auth/', include('rest_framework.urls')),
     path('tinymce/', include('tinymce.urls')),
 ]

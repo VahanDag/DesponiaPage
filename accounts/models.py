@@ -8,7 +8,6 @@ from userposts.models import UserMessages, UserPosts
 from django.templatetags.static import static
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
-from froala_editor.fields import FroalaField
 from tinymce import models as tinymce_models
 
 

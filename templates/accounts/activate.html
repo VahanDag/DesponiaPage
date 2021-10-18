@@ -1,10 +1,20 @@
 {% autoescape off %}
-Hi {{user.username}},
+<div class="container">
 
-We just need to verify your email address before you can access Desponia.
+    <img class="footer-logo mt-3 ml-4" src="{% static 'image/desponialogodark.png' %}" alt="">
+    <hr class="hr-about">
 
-Verify your email address http://{{domain}}{% url 'activate' uidb64=uid token=token %}
+    Hi {{user.username}},
 
-Thanks! -- The Desponia Team.
+    We just need to verify your email address before you can access Desponia.
+    
+    Verify your email address http://{{domain}}{% url 'activate' uidb64=uid token=token %}
+    
+    Thanks! -- The Desponia Team.
+    
+    <hr class="hr-about">
+    <img class="footer-logo mt-3 ml-4" src="{% static 'image/desponialogodark.png' %}" alt="">
+    
+</div>
 
 {% endautoescape %}

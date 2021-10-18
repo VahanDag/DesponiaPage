@@ -1,7 +1,6 @@
 from django import forms
 from userposts.models import UserPosts
 from userposts.models import UserMessages
-from froala_editor.widgets import FroalaEditor
 from pages.models import ContactUs
 from tinymce.widgets import TinyMCE
 

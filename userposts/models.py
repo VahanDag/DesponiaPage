@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from django.db import models
-from froala_editor.fields import FroalaField
 from tinymce import models as tinymce_models
 
 
