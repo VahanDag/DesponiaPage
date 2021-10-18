@@ -47,12 +47,8 @@ INSTALLED_APPS = [
     "pages",
     "posts",
     "userposts",
-    # "ckeditor_uploader",
-    # "django_quill",
     'tinymce',
-    "froala_editor",
     "django.forms",
-    # "django_summernote",
     'crispy_forms',
     'django_cleanup.apps.CleanupConfig',
     "postdetail",
@@ -162,15 +158,6 @@ MESSAGE_TAGS = {
 }
 
 
-FROALA_EDITOR_PLUGINS = ('char_counter', 'code_beautifier', 'colors', 'draggable', 'emoticons',
-                         'font_family', 'font_size', 'image_manager', 'image', 'inline_style',
-                         'link', 'lists', 'quick_insert', 'quote', "table",
-                         'url', 'video')
-
-FROALA_EDITOR_OPTIONS = {
-    'height': 300,
-}
-
 LOGIN_URL = "login"
 
 TINYMCE_DEFAULT_CONFIG = {
@@ -183,8 +170,8 @@ TINYMCE_DEFAULT_CONFIG = {
     "code,help,wordcount",
     "toolbar": "styleselect fontselect| "
     "bold italic backcolor | alignleft aligncenter "
-    "alignright alignjustify | bullist numlist  | "
-    "removeformat image  media | preview ",
+    " alignjustify | bullist numlist  | "
+    "removeformat image link media | preview ",
     
 }
 

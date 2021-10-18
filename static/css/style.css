@@ -25,17 +25,12 @@
   width: 100%
 }
 
-@media(max-width: 450px) {
+@media(max-width: 750px) {
   .categories-intro img {
-    width: 40px;
-    height: 40px;
+display: none;
   }
 }
-@media(max-width: 360px) {
-  .categories-intro img {
-    display: none;
-  }
-}
+
 
 .navbar-brand img {
   width: 40px;
@@ -148,6 +143,9 @@
   transition-timing-function: ease-in-out;
   transition-property: background-color, color;
 }
+#back-to-top-btn i {
+  text-align: center;
+}
 
 #back-to-top-btn:hover, #back-to-top-btn:focus {
   background-color: #333;
@@ -162,6 +160,11 @@
 @media(max-width:768px) {
   #back-to-top-btn {
     left: 45%;
+  }
+  #back-to-top-btn i {
+    align-items:center;
+    text-align: center;
+    margin:auto;
   }
 }
 

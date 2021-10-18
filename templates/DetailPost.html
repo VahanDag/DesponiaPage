@@ -245,6 +245,7 @@
     <div class="row">
         <div class=" col-lg-9 col-md-8 col-sm-12   pt-3">
             {% for message in p_messages %}
+            <a id="{{message.id}}"></a>
             <article class="post vt-post card ">
                 <div class="row ">
                     <div class="col-xs-12 col-sm-5 col-md-5 col-lg-3  media-user  ">
@@ -296,7 +297,7 @@
                                 <div class="dropdown-menu text-center">
                                     <div class="container">
                                         <button onclick="copyFunction('{{message.id}}')" class="btn btn-dark btn-sm mb-2">Copy</button>
-                                        <input id="copyInput{{message.id}}" class="border" type="text" value="http://127.0.0.1:8000/posts/{{detail.id}}?page={{pagenumber}}#{{message.id}}">
+                                        <input id="copyInput{{message.id}}" class="border" type="text" value="https://desponia-page.herokuapp.com//posts/{{detail.id}}?page={{pagenumber}}#{{message.id}}">
                                     </div>
                                 </div>
                             </div>
