@@ -14,8 +14,6 @@ from django.contrib.messages import constants as messages
 import os
 from pathlib import Path
 from decouple import config
-import django_heroku
-import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
@@ -32,7 +30,7 @@ SECRET_KEY = config("SECRET_KEY")
 DEBUG = True
 
 # ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
-ALLOWED_HOSTS = ["desponia-page.herokuapp.com", "127.0.0.1"]
+ALLOWED_HOSTS = ["vahandag.pythonanywhere.com"]
 
 
 # Application definition
@@ -74,7 +72,7 @@ ROOT_URLCONF = 'forumPage.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["templates"],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -94,15 +92,16 @@ WSGI_APPLICATION = 'forumPage.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': "desponia_db",
-        'USER': 'postgres',
-        'PASSWORD': 'Vahandaag3196.',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'vahandag$desponia',
+        'USER': 'vahandag',
+        'PASSWORD': 'desponiavahan',
+        'HOST': 'vahandag.mysql.pythonanywhere-services.com',
+        'TEST': {
+          'NAME': 'vahandag$test_desponia',
+          }
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -162,7 +161,6 @@ LOGIN_URL = "login"
 TINYMCE_DEFAULT_CONFIG = {
     "theme": "silver",
     "height": 500,
-    "plugins": 'image',
     "menubar": False,
     "plugins": "advlist,autolink,lists,link,styleselect,image,charmap,print,preview,anchor,"
     "searchreplace,visualblocks,code,fontselect,fullscreen,insertdatetime,media,table,paste,"
@@ -171,10 +169,13 @@ TINYMCE_DEFAULT_CONFIG = {
     "bold italic backcolor | alignleft aligncenter "
     " alignjustify | bullist numlist  | "
     "removeformat image link media | preview ",
-    
+
 }
 
 # EMAIL CONFIG
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
 
 EMAIL_HOST = 'smtpout.secureserver.net'
 EMAIL_FROM_USER = "no-reply@desponia.com"
@@ -185,4 +186,3 @@ EMAIL_USE_TLS = False
 EMAIL_PORT = 465
 DEFAULT_FROM_EMAIL = 'no-reply@desponia.com'
 
-django_heroku.settings(locals())
